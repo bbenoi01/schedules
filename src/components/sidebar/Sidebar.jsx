@@ -11,8 +11,21 @@ import { useState } from 'react';
 import { connect } from 'react-redux';
 
 import { getNflTeams } from '../../reducers/footballReducer/FootballActions';
+import { getNbaTeams } from '../../reducers/basketballReducer/BasketballActions';
+import { getMlbTeams } from '../../reducers/baseballReducer/BaseballActions';
+import { getNhlTeams } from '../../reducers/hockeyReducer/HockeyActions';
+import { getMlsTeams } from '../../reducers/soccerReducer/SoccerAction';
+import { getPgaGolfers } from '../../reducers/golfReducer/GolfActions';
 
-const Sidebar = ({ dispatch, nflTeams }) => {
+const Sidebar = ({
+	dispatch,
+	nflTeams,
+	nbaTeams,
+	mlbTeams,
+	nhlTeams,
+	mlsTeams,
+	pgaGolfers,
+}) => {
 	const [menuOpen, setMenuOpen] = useState(true);
 
 	return (
@@ -43,31 +56,51 @@ const Sidebar = ({ dispatch, nflTeams }) => {
 							<span>Football</span>
 						</li>
 					</Link>
-					<Link to='/basketball' className='router-link'>
+					<Link
+						to='/basketball'
+						className='router-link'
+						onClick={!nbaTeams ? () => dispatch(getNbaTeams()) : null}
+					>
 						<li>
 							<BasketballIcon className='icon' />
 							<span>Basketball</span>
 						</li>
 					</Link>
-					<Link to='/baseball' className='router-link'>
+					<Link
+						to='/baseball'
+						className='router-link'
+						onClick={!mlbTeams ? () => dispatch(getMlbTeams()) : null}
+					>
 						<li>
 							<BaseballIcon className='icon' />
 							<span>Baseball</span>
 						</li>
 					</Link>
-					<Link to='/hockey' className='router-link'>
+					<Link
+						to='/hockey'
+						className='router-link'
+						onClick={!nhlTeams ? () => dispatch(getNhlTeams()) : null}
+					>
 						<li>
 							<HockeyIcon className='icon' />
 							<span>Hockey</span>
 						</li>
 					</Link>
-					<Link to='/soccer' className='router-link'>
+					<Link
+						to='/soccer'
+						className='router-link'
+						onClick={!mlsTeams ? () => dispatch(getMlsTeams()) : null}
+					>
 						<li>
 							<SoccerIcon className='icon' />
 							<span>Soccer</span>
 						</li>
 					</Link>
-					<Link to='/golf' className='router-link'>
+					<Link
+						to='/golf'
+						className='router-link'
+						onClick={!pgaGolfers ? () => dispatch(getPgaGolfers()) : null}
+					>
 						<li>
 							<GolfIcon className='icon' />
 							<span>Golf</span>
@@ -82,7 +115,12 @@ const Sidebar = ({ dispatch, nflTeams }) => {
 
 function mapStoreToProps(store) {
 	return {
-		nflTeams: store.football.teams,
+		nflTeams: store.football.nflTeams,
+		nbaTeams: store.basketball.nbaTeams,
+		mlbTeams: store.baseball.mlbTeams,
+		nhlTeams: store.hockey.nhlTeams,
+		mlsTeams: store.soccer.mlsTeams,
+		pgaGolfers: store.golf.pgaGolfers,
 	};
 }
 

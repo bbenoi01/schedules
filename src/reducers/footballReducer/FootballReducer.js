@@ -2,8 +2,8 @@ import { types } from '../../types';
 
 const INITIAL_STATE = {
 	isFetching: false,
-	teams: JSON.parse(sessionStorage.getItem('nflTeams')) || null,
-	team: JSON.parse(sessionStorage.getItem('nflTeam')) || null,
+	nflTeams: JSON.parse(sessionStorage.getItem('nflTeams')) || null,
+	nflTeam: JSON.parse(sessionStorage.getItem('nflTeam')) || null,
 	errors: {},
 };
 
@@ -15,7 +15,7 @@ const FootballReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				isFetching: true,
-				teams: null,
+				nflTeams: null,
 				errors: null,
 			};
 		}
@@ -24,7 +24,7 @@ const FootballReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				isFetching: false,
-				teams: payload,
+				nflTeams: payload,
 				errors: {},
 			};
 		}
@@ -33,7 +33,7 @@ const FootballReducer = (state = INITIAL_STATE, action) => {
 			return {
 				...state,
 				isFetching: false,
-				teams: null,
+				nflTeams: null,
 				errors: payload,
 			};
 		}
