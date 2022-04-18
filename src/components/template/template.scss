@@ -1,0 +1,91 @@
+.template {
+	box-sizing: border-box;
+	height: calc(100vh - 60px);
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+
+	&.football {
+		background: url('../../../public/nflBackground.jpg') center/cover no-repeat;
+	}
+
+	&.basketball {
+		background: url('../../../public/nbaBackground.jpg') center/cover no-repeat;
+	}
+
+	&.baseball {
+		background: url('../../../public/mlbBackground.jpg') center/cover no-repeat;
+	}
+
+	&.hockey {
+		background: url('../../../public/nhlBackground.jpg') center/cover no-repeat;
+	}
+
+	&.soccer {
+		background: url('../../../public/mlsBackground.jpeg') center/cover no-repeat;
+	}
+
+	&.golf {
+		background: url('../../../public/pgaBackground.jpg') center/cover no-repeat;
+	}
+
+	.top,
+	.center {
+		background: #242629a1;
+		padding: 10px;
+		display: flex;
+	}
+
+	.top {
+		justify-content: center;
+		h2 {
+			color: crimson;
+		}
+	}
+
+	.center {
+		justify-content: space-around;
+
+		.left,
+		.right {
+			display: flex;
+			// flex-direction: column; mobile
+			// justify-content: center; mobile
+			gap: 10px;
+			align-items: center;
+		}
+	}
+
+	.bottom {
+		height: 80%;
+		display: flex;
+		// flex-direction: column; mobile
+
+		.left {
+			flex: 4;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.right {
+			flex: 8;
+			height: 100%;
+
+			.wrapper {
+				box-sizing: border-box;
+				height: inherit;
+				padding: 20px;
+				display: flex;
+				justify-content: center;
+				flex-wrap: wrap;
+				overflow-x: scroll;
+
+				&::-webkit-scrollbar {
+					display: none;
+				}
+			}
+		}
+	}
+}

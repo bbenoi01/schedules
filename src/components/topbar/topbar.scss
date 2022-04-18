@@ -1,0 +1,20 @@
+.topbar {
+	height: 60px;
+	background: #16161a;
+
+	.wrapper {
+		box-sizing: border-box;
+		height: inherit;
+		display: flex;
+		justify-content: space-between;
+		padding: 10px 20px;
+
+		.left,
+		.center,
+		.right {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+	}
+}
