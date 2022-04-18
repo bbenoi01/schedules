@@ -16,12 +16,21 @@ const Search = ({ sport, teams }) => {
 					onChange={(e) => setSelectedTeam(e.target.value)}
 				>
 					<option value=''>Choose Team...</option>
-					{teams &&
-						teams.map((team) => (
-							<option key={team.Key} value={team.Name}>
-								{team.Name}
-							</option>
-						))}
+					{teams && sport === 'golf'
+						? teams.map((team) => (
+								<option
+									key={team.PlayerID}
+									value={team.FirstName + ' ' + team.LastName}
+								>
+									{team.FirstName + ' ' + team.LastName}
+								</option>
+						  ))
+						: teams &&
+						  teams.map((team) => (
+								<option key={team.Key} value={team.Name}>
+									{team.Name}
+								</option>
+						  ))}
 				</select>
 			</div>
 			<div className='input-group'>

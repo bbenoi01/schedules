@@ -9,7 +9,7 @@ import {
 import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
 import Hub from './pages/hub/Hub';
-import Template from './components/template/Template';
+import Template from './pages/template/Template';
 // import Football from './pages/football/Football';
 // import Basketball from './pages/basketball/Basketball';
 // import Baseball from './pages/baseball/Baseball';
