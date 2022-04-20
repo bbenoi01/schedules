@@ -8,11 +8,15 @@ import {
 	getNflTeams,
 	getNflFavNews,
 } from '../../reducers/footballReducer/FootballActions';
-import { getNbaTeams } from '../../reducers/basketballReducer/BasketballActions';
+import {
+	getNbaTeams,
+	getNbaNews,
+} from '../../reducers/basketballReducer/BasketballActions';
 import { getMlbTeams } from '../../reducers/baseballReducer/BaseballActions';
 import { getNhlTeams } from '../../reducers/hockeyReducer/HockeyActions';
 
 const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
+	const [sport, setSport] = useState(null);
 	const [spread, setSpread] = useState(false);
 	const [nflFav, setNflFav] = useState(localStorage.getItem('nflFav') || null);
 	const [nflFavKey, setNflFavKey] = useState(
@@ -30,7 +34,7 @@ const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 	const [nhlFavKey, setNhlFavKey] = useState(
 		localStorage.getItem('nhlFavKey') || null
 	);
-	const temp = sessionStorage.getItem('nflFavNews') || null;
+	const temp = sessionStorage.getItem('nbaNews') || null;
 
 	const handleChange = (e, sport) => {
 		if (sport === 'football') {
@@ -58,8 +62,17 @@ const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 
 	const handleTLClick = () => {
 		setSpread(!spread);
+		setSport('football');
 		if (!temp) {
 			dispatch(getNflFavNews(nflFavKey));
+		}
+	};
+
+	const handleTRCLick = () => {
+		setSpread(!spread);
+		setSport('basketball');
+		if (!temp) {
+			dispatch(getNbaNews());
 		}
 	};
 
@@ -82,7 +95,7 @@ const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 		<div className={spread ? 'hub spread' : 'hub'}>
 			<div className='tl'>
 				<h1>News</h1>
-				<NewsLg />
+				<NewsLg sport={sport} />
 			</div>
 			<div className='tr'>
 				<h1>Stats</h1>
@@ -108,10 +121,7 @@ const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 								)}
 							</div>
 						</div>
-						<div
-							className='right'
-							onClick={nbaFav ? () => setSpread(!spread) : null}
-						>
+						<div className='right' onClick={nbaFav ? handleTRCLick : null}>
 							<div className='wrapper'>
 								{nbaFav ? (
 									<h3>

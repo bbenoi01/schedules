@@ -4,6 +4,7 @@ const INITIAL_STATE = {
 	isFetching: false,
 	nbaTeams: JSON.parse(sessionStorage.getItem('nbaTeams')) || null,
 	nbaTeam: JSON.parse(sessionStorage.getItem('nbaTeam')) || null,
+	nbaNews: JSON.parse(sessionStorage.getItem('nbaNews')) || null,
 	errors: {},
 };
 
@@ -30,6 +31,32 @@ const BasketballReducer = (state = INITIAL_STATE, action) => {
 		}
 
 		case types.GET_NBA_TEAMS_FAILURE: {
+			return {
+				...state,
+				isFetching: false,
+				errors: payload,
+			};
+		}
+
+		case types.GET_NBA_NEWS_START: {
+			return {
+				...state,
+				isFetching: true,
+				nbaNews: null,
+				errors: {},
+			};
+		}
+
+		case types.GET_NBA_NEWS_SUCCESS: {
+			return {
+				...state,
+				isFetching: false,
+				nbaNews: payload,
+				errors: {},
+			};
+		}
+
+		case types.GET_NBA_NEWS_FAILURE: {
 			return {
 				...state,
 				isFetching: false,
