@@ -6,15 +6,7 @@ import { games } from '../../data';
 import { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
-const Template = ({
-	sport,
-	nflTeams,
-	nbaTeams,
-	mlbTeams,
-	nhlTeams,
-	mlsTeams,
-	pgaGolfers,
-}) => {
+const Template = ({ sport, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 	const [teams, setTeams] = useState(null);
 
 	useEffect(() => {
@@ -35,18 +27,10 @@ const Template = ({
 				setTeams(nhlTeams);
 				break;
 
-			case 'soccer':
-				setTeams(mlsTeams);
-				break;
-
-			case 'golf':
-				setTeams(pgaGolfers);
-				break;
-
 			default:
 				break;
 		}
-	}, [sport, nflTeams, nbaTeams, mlbTeams, nhlTeams, mlsTeams, pgaGolfers]);
+	}, [sport, nflTeams, nbaTeams, mlbTeams, nhlTeams]);
 
 	return (
 		<div className={`template ${sport}`}>
@@ -88,8 +72,6 @@ function mapStoretoProps(store) {
 		nbaTeams: store.basketball.nbaTeams,
 		mlbTeams: store.baseball.mlbTeams,
 		nhlTeams: store.hockey.nhlTeams,
-		mlsTeams: store.soccer.mlsTeams,
-		pgaGolfers: store.golf.pgaGolfers,
 	};
 }
 

@@ -4,4 +4,164 @@
 	padding: 20px;
 	display: flex;
 	justify-content: center;
+	align-items: center;
+	position: relative;
+	overflow: hidden;
+
+	.tl,
+	.tr,
+	.c,
+	.bl,
+	.br {
+		box-sizing: border-box;
+		height: 45%;
+		width: 45%;
+		position: absolute;
+		transition: transform 2s ease;
+	}
+
+	.tl {
+		background: green;
+		z-index: 0;
+	}
+
+	.tr {
+		background: dodgerblue;
+		z-index: 0;
+	}
+
+	.c {
+		background: rebeccapurple;
+		z-index: 1;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		align-items: center;
+
+		.c-top {
+			height: 15%;
+			width: 100%;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.c-bottom {
+			height: 85%;
+			width: 100%;
+
+			.cb-top,
+			.cb-bottom {
+				height: 50%;
+				display: flex;
+				cursor: pointer;
+
+				h3 {
+					background: black;
+					border-radius: 40px;
+					padding: 5px 10px;
+				}
+
+				.left,
+				.right {
+					box-sizing: border-box;
+					width: 50%;
+					display: flex;
+					flex-direction: column;
+					justify-content: space-between;
+					align-items: center;
+					border: 1px solid black;
+
+					.wrapper {
+						height: 100%;
+						width: 100%;
+						display: flex;
+						justify-content: center;
+						align-items: center;
+					}
+				}
+			}
+
+			.cb-top {
+				border: 1px solid black;
+				border-bottom: 0;
+
+				.left {
+					background: url('../../../public/nflBackground.jpg') center/cover;
+				}
+
+				.right {
+					background: url('../../../public/nbaBackground.jpg') center/cover;
+				}
+			}
+
+			.cb-bottom {
+				border: 1px solid black;
+
+				.left {
+					background: url('../../../public/mlbBackground.jpg') center/cover;
+				}
+
+				.right {
+					background: url('../../../public/nhlBackground.jpg') center/cover;
+				}
+			}
+		}
+	}
+
+	.bl {
+		background: yellow;
+		z-index: 0;
+
+		h1 {
+			position: absolute;
+			bottom: 0;
+		}
+	}
+
+	.br {
+		background: red;
+		z-index: 0;
+
+		h1 {
+			position: absolute;
+			bottom: 0;
+			right: 0;
+		}
+	}
+
+	&.spread {
+		.tl {
+			transform: translate(-56%, -56%);
+
+			&:hover {
+				z-index: 2;
+			}
+		}
+
+		.tr {
+			transform: translate(56%, -56%);
+			text-align: right;
+
+			&:hover {
+				z-index: 2;
+			}
+		}
+
+		.bl {
+			transform: translate(-56%, 56%);
+
+			&:hover {
+				z-index: 2;
+			}
+		}
+
+		.br {
+			transform: translate(56%, 56%);
+
+			&:hover {
+				z-index: 2;
+			}
+		}
+	}
 }

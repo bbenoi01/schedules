@@ -5,8 +5,6 @@ import FootballIcon from '@mui/icons-material/SportsFootball';
 import BasketballIcon from '@mui/icons-material/SportsBasketball';
 import BaseballIcon from '@mui/icons-material/SportsBaseball';
 import HockeyIcon from '@mui/icons-material/SportsHockey';
-import SoccerIcon from '@mui/icons-material/SportsSoccer';
-import GolfIcon from '@mui/icons-material/SportsGolf';
 import { useState } from 'react';
 import { connect } from 'react-redux';
 
@@ -14,18 +12,8 @@ import { getNflTeams } from '../../reducers/footballReducer/FootballActions';
 import { getNbaTeams } from '../../reducers/basketballReducer/BasketballActions';
 import { getMlbTeams } from '../../reducers/baseballReducer/BaseballActions';
 import { getNhlTeams } from '../../reducers/hockeyReducer/HockeyActions';
-import { getMlsTeams } from '../../reducers/soccerReducer/SoccerAction';
-import { getPgaGolfers } from '../../reducers/golfReducer/GolfActions';
 
-const Sidebar = ({
-	dispatch,
-	nflTeams,
-	nbaTeams,
-	mlbTeams,
-	nhlTeams,
-	mlsTeams,
-	pgaGolfers,
-}) => {
+const Sidebar = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 	const [menuOpen, setMenuOpen] = useState(true);
 
 	return (
@@ -86,26 +74,6 @@ const Sidebar = ({
 							<span>Hockey</span>
 						</li>
 					</Link>
-					<Link
-						to='/soccer'
-						className='router-link'
-						onClick={!mlsTeams ? () => dispatch(getMlsTeams()) : null}
-					>
-						<li>
-							<SoccerIcon className='icon' />
-							<span>Soccer</span>
-						</li>
-					</Link>
-					<Link
-						to='/golf'
-						className='router-link'
-						onClick={!pgaGolfers ? () => dispatch(getPgaGolfers()) : null}
-					>
-						<li>
-							<GolfIcon className='icon' />
-							<span>Golf</span>
-						</li>
-					</Link>
 				</ul>
 			</div>
 			<div className='bottom'></div>
@@ -119,8 +87,6 @@ function mapStoreToProps(store) {
 		nbaTeams: store.basketball.nbaTeams,
 		mlbTeams: store.baseball.mlbTeams,
 		nhlTeams: store.hockey.nhlTeams,
-		mlsTeams: store.soccer.mlsTeams,
-		pgaGolfers: store.golf.pgaGolfers,
 	};
 }
 
