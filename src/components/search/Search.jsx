@@ -1,6 +1,6 @@
 import './search.scss';
-
 import React, { useState } from 'react';
+import TeamSelect from '../teamSelect/TeamSelect';
 
 const Search = ({ sport, teams }) => {
 	const [selectedTeam, setSelectedTeam] = useState(null);
@@ -10,28 +10,15 @@ const Search = ({ sport, teams }) => {
 		<div className='search'>
 			<div className='input-group'>
 				<label htmlFor='teams'>Choose a team</label>
-				<select
+				<TeamSelect sport={'teams'} teams={teams} />
+				{/* <select
 					name='teams'
 					id='teams'
 					onChange={(e) => setSelectedTeam(e.target.value)}
 				>
 					<option value=''>Choose Team...</option>
-					{teams && sport === 'golf'
-						? teams.map((team) => (
-								<option
-									key={team.PlayerID}
-									value={team.FirstName + ' ' + team.LastName}
-								>
-									{team.FirstName + ' ' + team.LastName}
-								</option>
-						  ))
-						: teams &&
-						  teams.map((team) => (
-								<option key={team.Key} value={team.Name}>
-									{team.Name}
-								</option>
-						  ))}
-				</select>
+					{teams && teams.map((team) => <TeamOption team={team} />)}
+				</select> */}
 			</div>
 			<div className='input-group'>
 				<label htmlFor='year'>Enter year</label>
