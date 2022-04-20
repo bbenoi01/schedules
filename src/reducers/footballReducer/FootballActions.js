@@ -22,3 +22,25 @@ export function getNflTeams() {
 			});
 	};
 }
+
+export function getNflFavNews(team) {
+	return (dispatch) => {
+		dispatch({
+			type: types.GET_FAV_NFL_NEWS_START,
+		});
+		axios
+			.get(
+				`https://api.sportsdata.io/v3/nfl/scores/json/NewsByTeam/${team}?key=${process.env.REACT_APP_FOOTBALL_API_KEY_}`
+			)
+			.then((res) => {
+				sessionStorage.setItem('nflFavNews', JSON.stringify(res.data));
+				dispatch({
+					type: types.GET_FAV_NFL_NEWS_SUCCESS,
+					payload: res.data,
+				});
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+}

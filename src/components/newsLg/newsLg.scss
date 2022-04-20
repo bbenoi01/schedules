@@ -1,0 +1,14 @@
+.news-lg {
+	height: 89%;
+
+	.wrapper {
+		box-sizing: border-box;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 20px;
+		padding: 20px;
+	}
+}

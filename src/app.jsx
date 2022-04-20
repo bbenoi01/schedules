@@ -10,12 +10,6 @@ import Sidebar from './components/sidebar/Sidebar';
 import Topbar from './components/topbar/Topbar';
 import Hub from './pages/hub/Hub';
 import Template from './pages/template/Template';
-// import Football from './pages/football/Football';
-// import Basketball from './pages/basketball/Basketball';
-// import Baseball from './pages/baseball/Baseball';
-// import Hockey from './pages/hockey/Hockey';
-// import Soccer from './pages/soccer/Soccer';
-// import Golf from './pages/golf/Golf';
 
 const App = () => {
 	return (
