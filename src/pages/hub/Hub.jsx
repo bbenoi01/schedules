@@ -1,65 +1,99 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import TeamSelect from '../../components/teamSelect/TeamSelect';
 import NewsLg from '../../components/newsLg/NewsLg';
+import StatsLg from '../../components/statsLg/StatsLg';
+import PlayersLg from '../../components/playersLg/PlayersLg';
+import StandingsLg from '../../components/standingsLg/StandingsLg';
 import './hub.scss';
 
 import {
 	getNflTeams,
-	getNflFavNews,
+	getNflNews,
+	getNflFavTeamPlayers,
+	getNflTeamStats,
+	getNflStandings,
 } from '../../reducers/footballReducer/FootballActions';
-import { getNbaTeams } from '../../reducers/basketballReducer/BasketballActions';
-import { getMlbTeams } from '../../reducers/baseballReducer/BaseballActions';
-import { getNhlTeams } from '../../reducers/hockeyReducer/HockeyActions';
+import {
+	getNbaTeams,
+	getNbaNews,
+	getNbaFavTeamPlayers,
+	getNbaTeamStats,
+	getNbaStandings,
+} from '../../reducers/basketballReducer/BasketballActions';
+import {
+	getMlbTeams,
+	getMlbNews,
+	getMlbFavTeamPlayers,
+	getMlbTeamStats,
+	getMlbStandings,
+} from '../../reducers/baseballReducer/BaseballActions';
+import {
+	getNhlTeams,
+	getNhlNews,
+	getNhlFavTeamPlayers,
+	getNhlTeamStats,
+	getNhlStandings,
+} from '../../reducers/hockeyReducer/HockeyActions';
+import {
+	setFavs,
+	setSport,
+	setSpread,
+	clearHubNews,
+} from '../../reducers/hubReducer/HubActions';
 
-const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
-	const [spread, setSpread] = useState(false);
-	const [nflFav, setNflFav] = useState(localStorage.getItem('nflFav') || null);
-	const [nflFavKey, setNflFavKey] = useState(
-		localStorage.getItem('nflFavKey') || null
-	);
-	const [nbaFav, setNbaFav] = useState(localStorage.getItem('nbaFav') || null);
-	const [nbaFavKey, setNbaFavKey] = useState(
-		localStorage.getItem('nbaFavKey') || null
-	);
-	const [mlbFav, setMlbFav] = useState(localStorage.getItem('mlbFav') || null);
-	const [mlbFavKey, setMlbFavKey] = useState(
-		localStorage.getItem('mlbFavKey') || null
-	);
-	const [nhlFav, setNhlFav] = useState(localStorage.getItem('nhlFav') || null);
-	const [nhlFavKey, setNhlFavKey] = useState(
-		localStorage.getItem('nhlFavKey') || null
-	);
-	const temp = sessionStorage.getItem('nflFavNews') || null;
-
+const Hub = ({
+	spread,
+	dispatch,
+	nflTeams,
+	nbaTeams,
+	mlbTeams,
+	nhlTeams,
+	nflFav,
+	nflKey,
+	nbaFav,
+	nbaKey,
+	mlbFav,
+	mlbKey,
+	nhlFav,
+	nhlKey,
+	news,
+	players,
+	stats,
+	standings,
+}) => {
 	const handleChange = (e, sport) => {
-		if (sport === 'football') {
-			localStorage.setItem('nflFav', e.target.value.split(', ')[0]);
-			localStorage.setItem('nflFavKey', e.target.value.split(', ')[1]);
-			setNflFav(e.target.value.split(', ')[0]);
-			setNflFavKey(e.target.value.split(', ')[1]);
-		} else if (sport === 'basketball') {
-			localStorage.setItem('nbaFav', e.target.value.split(', ')[0]);
-			localStorage.setItem('nbaFavKey', e.target.value.split(', ')[1]);
-			setNbaFav(e.target.value.split(', ')[0]);
-			setNbaFavKey(e.target.value.split(', ')[1]);
-		} else if (sport === 'baseball') {
-			localStorage.setItem('mlbFav', e.target.value.split(', ')[0]);
-			localStorage.setItem('mlbFavKey', e.target.value.split(', ')[1]);
-			setMlbFav(e.target.value.split(', ')[0]);
-			setMlbFavKey(e.target.value.split(', ')[1]);
-		} else if (sport === 'hockey') {
-			localStorage.setItem('nhlFav', e.target.value.split(', ')[0]);
-			localStorage.setItem('nhlFavKey', e.target.value.split(', ')[1]);
-			setNhlFav(e.target.value.split(', ')[0]);
-			setNhlFavKey(e.target.value.split(', ')[1]);
-		}
+		dispatch(setFavs(sport, e.target.value));
 	};
 
-	const handleTLClick = () => {
-		setSpread(!spread);
-		if (!temp) {
-			dispatch(getNflFavNews(nflFavKey));
+	const handleClick = (sport) => {
+		if (spread === false) {
+			if (sport === 'football') {
+				dispatch(getNflNews());
+				dispatch(getNflFavTeamPlayers(nflKey));
+				dispatch(getNflTeamStats());
+				dispatch(getNflStandings());
+			} else if (sport === 'basketball') {
+				dispatch(getNbaNews());
+				dispatch(getNbaFavTeamPlayers(nbaKey));
+				dispatch(getNbaTeamStats());
+				dispatch(getNbaStandings());
+			} else if (sport === 'baseball') {
+				dispatch(getMlbNews());
+				dispatch(getMlbFavTeamPlayers(mlbKey));
+				dispatch(getMlbTeamStats());
+				dispatch(getMlbStandings());
+			} else if (sport === 'hockey') {
+				dispatch(getNhlNews());
+				dispatch(getNhlFavTeamPlayers(nhlKey));
+				dispatch(getNhlTeamStats());
+				dispatch(getNhlStandings());
+			}
+			dispatch(setSport(sport));
+			dispatch(setSpread(!spread));
+		} else {
+			dispatch(setSpread(!spread));
+			dispatch(clearHubNews());
 		}
 	};
 
@@ -82,10 +116,11 @@ const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 		<div className={spread ? 'hub spread' : 'hub'}>
 			<div className='tl'>
 				<h1>News</h1>
-				<NewsLg />
+				<NewsLg news={news} />
 			</div>
 			<div className='tr'>
 				<h1>Stats</h1>
+				<StatsLg stats={stats} />
 			</div>
 			<div className='c'>
 				<div className='c-top'>
@@ -93,7 +128,10 @@ const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 				</div>
 				<div className='c-bottom'>
 					<div className='cb-top'>
-						<div className='left' onClick={nflFav ? handleTLClick : null}>
+						<div
+							className='left'
+							onClick={nflFav ? () => handleClick('football') : null}
+						>
 							<div className='wrapper'>
 								{nflFav ? (
 									<h3>
@@ -110,7 +148,7 @@ const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 						</div>
 						<div
 							className='right'
-							onClick={nbaFav ? () => setSpread(!spread) : null}
+							onClick={nbaFav ? () => handleClick('basketball') : null}
 						>
 							<div className='wrapper'>
 								{nbaFav ? (
@@ -130,7 +168,7 @@ const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 					<div className='cb-bottom'>
 						<div
 							className='left'
-							onClick={mlbFav ? () => setSpread(!spread) : null}
+							onClick={mlbFav ? () => handleClick('baseball') : null}
 						>
 							<div className='wrapper'>
 								{mlbFav ? (
@@ -148,7 +186,7 @@ const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 						</div>
 						<div
 							className='right'
-							onClick={nhlFav ? () => setSpread(!spread) : null}
+							onClick={nhlFav ? () => handleClick('hockey') : null}
 						>
 							<div className='wrapper'>
 								{nhlFav ? (
@@ -169,9 +207,11 @@ const Hub = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
 			</div>
 			<div className='bl'>
 				<h1>Players</h1>
+				<PlayersLg players={players} />
 			</div>
 			<div className='br'>
-				<h1>Fantasy</h1>
+				<h1>Standings</h1>
+				<StandingsLg standings={standings} />
 			</div>
 		</div>
 	);
@@ -183,6 +223,19 @@ function mapStoreToProps(store) {
 		nbaTeams: store.basketball.nbaTeams,
 		mlbTeams: store.baseball.mlbTeams,
 		nhlTeams: store.hockey.nhlTeams,
+		spread: store.hub.spread,
+		nflFav: store.hub.nflFav,
+		nflKey: store.hub.nflFavKey,
+		nbaFav: store.hub.nbaFav,
+		nbaKey: store.hub.nbaFavKey,
+		mlbFav: store.hub.mlbFav,
+		mlbKey: store.hub.mlbFavKey,
+		nhlFav: store.hub.nhlFav,
+		nhlKey: store.hub.nhlFavKey,
+		news: store.hub.news,
+		players: store.hub.players,
+		stats: store.hub.stats,
+		standings: store.hub.standings,
 	};
 }
 

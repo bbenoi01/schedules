@@ -1,27 +1,29 @@
-import { connect } from 'react-redux';
 import './newsLg.scss';
 
-const NewsLg = ({ nflFavNews }) => {
+const NewsLg = ({ news }) => {
 	return (
 		<div className='news-lg'>
-			{nflFavNews ? (
-				nflFavNews.map((item) => (
-					<div className='wrapper' key={item.NewsID}>
-						<h3>{item.Title}</h3>
-						<p>{item.Content}</p>
-					</div>
-				))
-			) : (
-				<h2>No News</h2>
-			)}
+			<div className='wrapper'>
+				{news ? (
+					news.map((item) => (
+						<a
+							href={item.Url}
+							target='_blank'
+							rel='noreferrer'
+							key={item.NewsID}
+						>
+							<div className='item-container'>
+								<h5>{item.Title}</h5>
+								<p>{item.Content}</p>
+							</div>
+						</a>
+					))
+				) : (
+					<h2>No News</h2>
+				)}
+			</div>
 		</div>
 	);
 };
 
-function mapStoreToProps(store) {
-	return {
-		nflFavNews: store.football.nflFavNews,
-	};
-}
-
-export default connect(mapStoreToProps)(NewsLg);
+export default NewsLg;

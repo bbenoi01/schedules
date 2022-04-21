@@ -2,8 +2,8 @@ import { types } from '../../types';
 
 const INITIAL_STATE = {
 	isFetching: false,
-	nbaTeams: JSON.parse(sessionStorage.getItem('nbaTeams')) || null,
-	nbaTeam: JSON.parse(sessionStorage.getItem('nbaTeam')) || null,
+	nbaTeams: JSON.parse(localStorage.getItem('nbaTeams')) || null,
+	nbaTeam: JSON.parse(localStorage.getItem('nbaTeam')) || null,
 	errors: {},
 };
 
