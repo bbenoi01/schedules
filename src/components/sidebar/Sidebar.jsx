@@ -14,7 +14,7 @@ import { getMlbTeams } from '../../reducers/baseballReducer/BaseballActions';
 import { getNhlTeams } from '../../reducers/hockeyReducer/HockeyActions';
 
 const Sidebar = ({ dispatch, nflTeams, nbaTeams, mlbTeams, nhlTeams }) => {
-	const [menuOpen, setMenuOpen] = useState(true);
+	const [menuOpen, setMenuOpen] = useState(false);
 
 	return (
 		<div className={menuOpen ? 'sidebar active' : 'sidebar'}>

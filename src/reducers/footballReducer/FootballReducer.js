@@ -2,9 +2,8 @@ import { types } from '../../types';
 
 const INITIAL_STATE = {
 	isFetching: false,
-	nflTeams: JSON.parse(sessionStorage.getItem('nflTeams')) || null,
-	nflTeam: JSON.parse(sessionStorage.getItem('nflTeam')) || null,
-	nflFavNews: JSON.parse(sessionStorage.getItem('nflFavNews')) || null,
+	nflTeams: JSON.parse(localStorage.getItem('nflTeams')) || null,
+	nflTeam: JSON.parse(localStorage.getItem('nflTeam')) || null,
 	errors: {},
 };
 
@@ -35,33 +34,6 @@ const FootballReducer = (state = INITIAL_STATE, action) => {
 				...state,
 				isFetching: false,
 				nflTeams: null,
-				errors: payload,
-			};
-		}
-
-		case types.GET_FAV_NFL_NEWS_START: {
-			return {
-				...state,
-				isFetching: true,
-				nflFavNews: null,
-				errors: {},
-			};
-		}
-
-		case types.GET_FAV_NFL_NEWS_SUCCESS: {
-			return {
-				...state,
-				isFetching: false,
-				nflFavNews: payload,
-				errors: {},
-			};
-		}
-
-		case types.GET_FAV_NFL_NEWS_FAILURE: {
-			return {
-				...state,
-				isFetching: false,
-				nflFavNews: null,
 				errors: payload,
 			};
 		}

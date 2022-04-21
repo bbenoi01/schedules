@@ -1,30 +1,11 @@
-import { useEffect, useState } from 'react';
-import { connect } from 'react-redux';
 import './newsLg.scss';
 
-const NewsLg = ({ sport, nflFavNews, nbaNews }) => {
-	const [data, setData] = useState(null);
-
-	useEffect(() => {
-		switch (sport) {
-			case 'football':
-				setData(nflFavNews);
-				break;
-
-			case 'basketball':
-				setData(nbaNews);
-				break;
-
-			default:
-				break;
-		}
-	}, [sport, nflFavNews, nbaNews]);
-
+const NewsLg = ({ news }) => {
 	return (
 		<div className='news-lg'>
 			<div className='wrapper'>
-				{data ? (
-					data.map((item) => (
+				{news ? (
+					news.map((item) => (
 						<a
 							href={item.Url}
 							target='_blank'
@@ -45,11 +26,4 @@ const NewsLg = ({ sport, nflFavNews, nbaNews }) => {
 	);
 };
 
-function mapStoreToProps(store) {
-	return {
-		nflFavNews: store.football.nflFavNews,
-		nbaNews: store.basketball.nbaNews,
-	};
-}
-
-export default connect(mapStoreToProps)(NewsLg);
+export default NewsLg;
