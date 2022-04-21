@@ -20,7 +20,8 @@
 			box-sizing: border-box;
 			height: 250px;
 			width: 200px;
-			background: rgba(0, 0, 0, 0.805);
+			background: #242629;
+			color: #94a1b2;
 			border-radius: 10px;
 			display: flex;
 			flex-direction: column;
@@ -47,6 +48,12 @@
 						height: 80px;
 						border-radius: 100%;
 					}
+				}
+			}
+
+			.pc-center {
+				h5 {
+					color: whitesmoke;
 				}
 			}
 
